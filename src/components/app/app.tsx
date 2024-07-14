@@ -26,6 +26,9 @@ const App = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const location = useLocation();
+  const background = location.state?.background;
+
   useEffect(() => {
     dispatch(getApiIngredients());
     dispatch(getApiUser());
@@ -34,7 +37,7 @@ const App = () => {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes>
+      <Routes location={background || location}>
         <Route path='/' element={<ConstructorPage />} />
 
         <Route path='/ingredients/:id' element={<IngredientDetails />} />

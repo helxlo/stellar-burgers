@@ -6,13 +6,15 @@ type TBurgerState = {
     bun: TConstructorIngredient | null;
     ingredients: TConstructorIngredient[];
   };
+
 };
 
 const initialState: TBurgerState = {
   constructorItems: {
     bun: null,
     ingredients: []
-  }
+  },
+
 };
 
 const burgerSlice = createSlice({
