@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TOrder } from '../../utils/types';
-import { getOrdersApi } from '@api';
+import { getOrdersApi } from '../../utils/burger-api';
 
 export const getApiOrders = createAsyncThunk('orders/UserOrders', getOrdersApi);
 
@@ -8,7 +8,7 @@ type TOrders = {
   orders: TOrder[];
 };
 
-const initialState: TOrders = {
+export const initialState: TOrders = {
   orders: []
 };
 

@@ -5,7 +5,7 @@ import {
   updateUserApi,
   logoutApi,
   getUserApi
-} from '@api';
+} from '../../utils/burger-api';
 import { TUser } from '@utils-types';
 
 export const login = createAsyncThunk('user/login', loginUserApi);
@@ -20,7 +20,7 @@ type TUserState = {
   error: string | null;
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuthChecked: false,
   user: {
     email: '',

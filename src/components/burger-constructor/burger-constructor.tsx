@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { clearBurger } from '../../services/slices/burgerSlices';
 
 export const BurgerConstructor: FC = () => {
-  const { constructorItems } = useSelector((state) => state.burger);
+  const constructorItems = useSelector((state) => state.burger);
   const orderRequest = useSelector(getOrderRequestNewOrder);
   const orderModalData = useSelector(getOrderModalDataNewOrder);
 
