@@ -1,5 +1,9 @@
-
 describe('проверяем функциональность приложения', () => {
+  const ingredientDetails = 'Детали ингредиента';
+  const addButton = 'Добавить';
+  const chooseBuns = 'Выберите булки';
+  const chooseMains = 'Выберите начинку';
+
   it('сервис должен быть доступен по адресу localhost:4000', function () {
     cy.visit('/');
   });
@@ -30,14 +34,13 @@ describe('проверяем функциональность приложени
   });
 
   describe('тестирование работы модальных окон', () => {
-
     beforeEach(() => {
       const ingredient = cy.contains('Биокотлета из марсианской Магнолии');
       ingredient.click();
     });
 
     it('открытие модального окна ингредиента', () => {
-      cy.contains('Детали ингридиента').should('exist');
+      cy.contains(ingredientDetails).should('exist');
 
       cy.get('li')
         .children('p')
@@ -54,48 +57,48 @@ describe('проверяем функциональность приложени
     });
 
     it('закрытие по клику на крестик', () => {
-      const closeX = cy.get(`[data-cy="Детали ингридиента"]`);
+      cy.contains(ingredientDetails).should('exist');
+
+      const closeX = cy.get('[data-cy="modal-close"]');
       closeX.click();
 
-      cy.contains('Детали ингридиента').should('not.exist');
+      cy.contains(ingredientDetails).should('not.exist');
     });
 
     it('закрытие по клику на оверлэй', () => {
-      cy.contains('Детали ингридиента').should('exist');
+      cy.contains(ingredientDetails).should('exist');
 
       cy.get('body').type('{esc}');
 
-      cy.contains('Детали ингридиента').should('not.exist');
+      cy.contains(ingredientDetails).should('not.exist');
     });
   });
 
   describe('добавление ингредиентов из списка в конструктор', () => {
-    
     it('булка добавляется в конструктор', () => {
       const buns = cy.get('h3').contains('Булки').next('ul');
-      const bunsAddButton = buns.contains('Добавить');
+      const bunsAddButton = buns.contains(addButton);
 
-      cy.get('div').contains('Выберите булки').should('exist');
+      cy.get('div').contains(chooseBuns).should('exist');
 
       bunsAddButton.click();
 
-      cy.get('div').contains('Выберите булки').should('not.exist');
+      cy.get('div').contains(chooseBuns).should('not.exist');
     });
 
     it('ингредиент добавляется в конструктор', () => {
       const mains = cy.get('h3').contains('Начинки').next('ul');
-      const mainsAddButton = mains.contains('Добавить');
+      const mainsAddButton = mains.contains(addButton);
 
-      cy.get('div').contains('Выберите начинку').should('exist');
+      cy.get('div').contains(chooseMains).should('exist');
 
       mainsAddButton.click();
 
-      cy.get('div').contains('Выберите начинку').should('not.exist');
+      cy.get('div').contains(chooseMains).should('not.exist');
     });
   });
 
   describe('оформление заказа', () => {
-
     it('проверка пользователя с моковыми данными', () => {
       cy.contains('helxlo').should('exist');
     });
@@ -107,11 +110,11 @@ describe('проверяем функциональность приложени
       }).as(`${'order'}`);
 
       const buns = cy.get('h3').contains('Булки').next('ul');
-      const bunsAddButton = buns.contains('Добавить');
+      const bunsAddButton = buns.contains(addButton);
       bunsAddButton.click();
 
       const mains = cy.get('h3').contains('Начинки').next('ul');
-      const mainsAddButton = mains.contains('Добавить');
+      const mainsAddButton = mains.contains(addButton);
       mainsAddButton.click();
 
       const orderRequestButton = cy.contains('Оформить заказ');
@@ -122,8 +125,8 @@ describe('проверяем функциональность приложени
       cy.get('body').type('{esc}');
 
       cy.contains('36112').should('not.exist');
-      cy.contains('Выберите булки').should('exist');
-      cy.contains('Выберите начинку').should('exist');
+      cy.contains(chooseBuns).should('exist');
+      cy.contains(chooseMains).should('exist');
     });
   });
 });
